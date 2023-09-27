@@ -123,9 +123,10 @@
     name= readline(prompt="Input your name:")
     
     age= readline(prompt="Input you age:")
-    print(paste("My Name is",name,))
-
+    print(paste("My Name is",name,"and I am",age,"years old."))
+    print(R.version.string)
     
     
+    # the output is "My Name is Karen and I am 19 years old."
     
     
