@@ -64,3 +64,79 @@
  ave_fuel_expd <- weighted.mean(diesel_fuel$Price_per_liter,diesel_fuel$Purchase_quantity)
  ave_fuel_expd
  
+ #7. Dataset
+ data("rivers")
+ 
+ #7a
+ data <- c(length(rivers),sum(rivers),mean(rivers),median(rivers),var(rivers),sd(rivers),min(rivers),max(rivers))
+ data
+ 
+#8 The table below gives the 25 most powerful celebrities and their annual pay as ranked the editions of Forbes magazine and as listed on the Forbes.com website.
+ 
+ #a Create vectors for Celebrity Names and Annual Pay
+ #Write the R scripts and its output.
+ 
+ celeb_names <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2","Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", "Brice Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elthon John", "David Letterman", "Phil Mickelson", "J.K Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+ annualpay <- c(67,90,225,110,90,332,302,41,52,88,55,44,55,40,233,34,40,47,75,25,39,45,32,40,32) 
+ 
+ #b Modify the power ranking and pay of J.K. Rowling.Change power ranking to 15 and pay to 90. Write the R scripts and its output.
+ print(celebrities)
+ 
+ celebrities$Power_Ranking[celebrities$Name == "J.K Rowling"] <- 15
+ celebrities$Annual_Pay[celebrities$Name == "J.K Rowling"] <- 90
+ 
+ print("updated")
+ print(celebrities)
+ 
+
+ #c Create an excel file from the table above and save it as csv file(PowerRanking). Import the csv file into the RStudio. What is the R script?
+ library(readxl)
+ PowerRanking_csv <- read_excel("PowerRanking.csv.xlsx")
+ View(PowerRanking_csv)
+ 
+ #d.
+ data1020 <- celebrities[10:20, ]
+ save(data1020, file = "Ranks.RData")
+ 
+#9 Download the Hotels-Vienna https://tinyurl.com/Hotels-Vienna
+ #a Import the excel file into your RStudio.
+ #What is the R script? 
+ library(readxl)
+ hotelsvienna <- read_excel("hotels-vienna.xlsx")
+ View(hotelsvienna)
+ 
+ #b. How many dimensions does the dataset have?
+ #What is the R script? 
+ dim(hotelsvienna)
+ 
+ #What is its output? 
+ #[1] 428  24
+ 
+ #c. Select columns country, neighbourhood, price, stars, accomodation_type, and ratings.
+ #Write the R script.
+ 
+ datavienna <- hotelsvienna[, c("country", "neighbourhood", "price", "stars", "accomodation_type", "ratings")]
+
+  #d. Save the data as **new.RData to your RStudio. 
+ #Write the R script. 
+ 
+ datavienna<- hotelsvienna
+ save(datavienna, file = "**new.RData")
+ 
+ #10.
+ #a
+ Vegetables <- list("Spinach","Cabbage","Carrots","Raddish","Lady Finger","Squash","Capsicum","Onions","Sweet Potato","Cucumber")
+ #10b Add 2 additional vegetables after the last vegetables in the list
+ Add_NewList <- append(Vegetables,c("Eggplant","Ginger"))
+ Add_NewList
+ #10c Add 4 additional vegetables after index 5
+ Add_5NewList <- append(Vegetables,c("Zucchini","Celery","Turnip","Beetroot","Cluster Beans"),after = 5)
+ Add_5NewList
+ #10d Remove the vegetables in index 5,10, and 15
+ Rem_NewList <- Vegetables [c(-5, -10, -15)]
+ Rem_NewList
+ 
+ 
+ 
+ 
+ 
