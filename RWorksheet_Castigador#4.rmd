@@ -54,11 +54,11 @@ Excel_Data
 #6 
   
 Input_Num <- readline(prompt="Enter A Number From 1 To 50:")
-  if (Input_Num>50){
+  if (Input_Num>50) {
   print("The Number Is Beyond The Range Of 1 To 50")
 }
-  else {
+  else  {
     print("True")
-  }
+}
 
 #7
