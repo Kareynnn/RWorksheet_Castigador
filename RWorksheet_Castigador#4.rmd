@@ -1,7 +1,7 @@
-#RWorksheet_4a
+#RWorksheet_4A
 
-#1.
-#1a
+#1
+#1A
   shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0)
  
   Height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0)
@@ -15,35 +15,50 @@ househol_dData <- data.frame(
 )
 household_Data
 
-1b.
+#1B
 males<- householdData[householdData$Gender == "M", c("Gender", "shoeSize", "Height")]
 males
 
 fem <- householdData[householdData$Gender == "F", c("Gender", "shoeSize", "Height")]
 fem
 
-#1c.
+#1C
 shoe_mean <- mean(householdData$shoeSize)
 shoe_mean
 
 height_mean <- mean(householdData$Height)
 height_mean
 
-#2.
+#2
 
 nameof_Months <- c("March","April","January","November","January", "September","October","September","November","August", "January","November","November","February","May","August", "July","December","August","August","September","November","February","April")
 
 factor_Months_vector <- factor(nameof_Months)
-factor_Months_vector
+factor_months_vector
 
-#3.
+#3
 summary(nameof_Months)
 summary(factor_months_vector)
 #The summary of factor is more useful than the first summary which is the summary of the vector.
 
-#4.
+#4
 
 direction_Data <- c("East", "West", "North")
-new_order_Data <- factor(factor_data,levels = c("East","West","North"))
+new_Order_Data <- factor(factor_data,levels = c("East","West","North"))
 print(new_order_data)
 
+#5
+Excel_Data <-read.csv ("import_march.csv")
+Excel_Data
+
+#6 
+  
+Input_Num <- readline(prompt="Enter A Number From 1 To 50:")
+  if (Input_Num>50){
+  print("The Number Is Beyond The Range Of 1 To 50")
+}
+  else {
+    print("True")
+  }
+
+#7
