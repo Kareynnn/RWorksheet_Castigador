@@ -52,13 +52,164 @@ Excel_Data <-read.csv ("import_march.csv")
 Excel_Data
 
 #6 
-  
-Input_Num <- readline(prompt="Enter A Number From 1 To 50:")
-  if (Input_Num>50) {
-  print("The Number Is Beyond The Range Of 1 To 50")
-}
-  else  {
-    print("True")
+  input_Num <- readline(prompt="Enter number from 1 to 50:
+                     ")
+if(input_Num>50){
+  print("The number is beyond the range of 1 to 50")
+}else{
+  print("True")
 }
 
+
 #7
+    calculate_MinBills <- function() {
+ 
+  Bills <- c(1000, 500, 200, 100, 50)
+ 
+ 
+  amount <- as.numeric(readline("Enter the price of the snack (a multiple of 50 pesos): "))
+ 
+  if (is.na(amount) || amount %% 50 != 0) {
+    cat("Invalid input. Price must be a multiple of 50 pesos.\n")
+    return()
+  }
+ 
+  snack_price <- amount
+ 
+ 
+  bill1000 <- 0
+  bill500 <- 0
+  bill200 <- 0
+  bill100 <- 0
+  bill50 <- 0
+
+ 
+  if (snack_price >= 1000) {
+    bill1000 <- snack_price %/% 1000
+    snack_price <- snack_price %% 1000
+  }
+  if (snack_price >= 500) {
+    bill500 <- snack_price %/% 500
+    snack_price <- snack_price %% 500
+  }
+  if (snack_price >= 200) {
+    bill200 <- snack_price %/% 200
+    snack_price <- snack_price %% 200
+  }
+  if (snack_price >= 100) {
+    bill100 <- snack_price %/% 100
+    snack_price <- snack_price %% 100
+  }
+  if (snackprice >= 50) {
+    bill50 <- snack_price %/% 50
+  }
+
+
+  cat("Price:", amount, "pesos\n")
+  cat("Minimum number of bills needed:\n")
+  cat("1000 pesos:", bill1000, "bills\n")
+  cat("500 pesos:", bill500, "bills\n")
+  cat("200 pesos:", bill200, "bills\n")
+  cat("100 pesos:", bill100, "bills\n")
+  cat("50 pesos:", bill50, "bills\n")
+}
+
+calculate_MinBills()
+
+
+#8a Create a data frame
+GradesMath <- data.frame(
+    Name = c("Annie","Thea","Steve","Hanna"),
+    Grade1 = c(85,65,75,95),
+    Grade2 = c(65,75,55,75),
+    Grade3 = c(85,90,80,100),
+    Grade4 = c(100,90,85,90)
+)
+GradesMath
+
+#8B
+
+GradesMath$Average <- (GradesMath$Grade1 + GradesMath$Grade2 + GradesMath$Grade3 + GradesMath$Grade4) / 4
+
+High_Grades <-  GradesMath[GradesMath$Average > 90, ]
+
+if(nrow(High_Grades)>0){
+  print(High_Grades$Name,"'s average grade this semester is:",High_Grades)
+}else{
+  print("there is no student that got 90 average grades")
+}
+
+#8C
+
+ Average_Scores <- Means(GradesMath[, -1])
+
+if (AverageScores[1] < 80) {
+    print("The 1st test was difficult.\n")
+}else if (AverageScores[2] < 80) {
+    print("The 2nd test was difficult.\n")
+}else if (AverageScores[3] < 80) {
+    print("The 3rd test was difficult.\n")
+}else if (AverageScores[4] < 80) {
+    print("The 4th test was difficult.\n")
+}else{
+  print("No test that students find it difficult")
+}
+ 
+#8D
+#Annie Scores
+ 
+if (Grades_Math[1,2] > Grades_Math[1,3] && Grades_Math[1,2] > Grades_Math[1,4] && Grades_Math[1,2] > Grades_Math[1,5]) {
+  AnnieScores <-GradesMath[1,2]
+} else if (Grades_Math[1,3] > Grades_Math[1,4] && Grades_Math[1,3] > Grades_Math[1,5]) {
+  AnnieScores <- Grades_Math[1,3]
+} else if (Grades_Math[1,4] > Grades_Math[1,5] && Grades_Math[1,2] > Grades_Math[1,5]) {
+  AnnieScores <- Grades_Math[1,4]
+} else {
+  AnnieScores <- Grades_Math[1,5]
+}
+
+
+#Thea Scores
+if (Grades_Math[2,2] > Grades_Math[2,3] && Grades_Math[2,2] >Grades_Math[2,4] && Grades_Math[2,2] > Grades_Math[2,5]) {
+  TheaScores <- GradesMath[2,2]
+} else if (Grades_Math[2,3] > Grades_Math[2,4] &&Grades_Math[2,3] > Grades_Math[2,5]) {
+  theaScores <- mathgrades[2,3]
+} else if (Grades_Math[2,4] > Grades_Math[2,5] && Grades_Math[2,2] > Grades_Math[2,5]) {
+  TheaScores <- Grades_Math[2,4]
+} else {
+  TheaScores <-Grades_Math[2,5]
+}
+
+#Steve Scores
+if (Grades_Math[3,2] > Grades_Math[3,3] &&Grades_Math[3,2] > Grades_Math[3,4] && Grades_Math[3,2] >Grades_Math[3,5]) {
+  SteveScores <- Grades_Math[3,2]
+} else if (Grades_Math[3,3] > Grades_Math[3,4] && Grades_Math[3,3] > Grades_Math[3,5]) {
+ SteveScores <- Grades_Math[2,3]
+} else if (Grades_Math[3,4] > Grades_Math[3,5] && Grades_Math[3,2] > Grades_Math[3,5]) {
+  SteveScores <- Grades_Math[3,4]
+} else {
+  SteveScores <- Grades_Math[3,5]
+}
+
+#Hanna Scores
+if (Grades_Math[4,2] > Grades_Math[4,3] && Grades_Math[4,2] > Grades_Math[4,4] && Grades_Math[4,2] > Grades_Math[4,5]) {
+  HannaScores <- Grades_Math[4,2]
+} else if (Grades_Math[4,3] > Grades_Math[4,4] && Grades_Math[4,3] > Grades_Math[4,5]) {
+  HannaScores <- mathgrades[2,3]
+} else if (Grades_Math[4,4] > Grades_Math[4,5] && Grades_Math[4,2] > Grades_Math[4,5]) {
+  HannaScores <- Grades_Math[4,4]
+} else {
+  HannaScores <- Grades_Math[4,5]
+}
+
+Grades_Math$HighestGrades <- c(AnnieScores, TheaScores, SteveScores, HannaScores)
+
+
+NinetyHighest <- Grades_Math[Grades_Math$HighestGrades > 90,]
+NinetyHighest
+
+if (nrow(NinetyHighest) > 0) {
+  paste(NinetyHighest$Name, "'s highest grade this semester is", NinetyHighest$HighestGrade)
+} else {
+  paste("No students have an average math score over 90.")
+}
