@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #1
+```{r}
     vectorA <-c (1,2,3,4,5)
     seroMatrix<- matrix(0,nrow=5, ncol=5)
     
@@ -21,25 +22,26 @@ knitr::opts_chunk$set(echo = TRUE)
  }
     cat ("\n")
 }    
-
+```
 #2 
+``` {r}
     for (i in 1:5){
     yne <- rep ("*",i)
     print(yne)
 }
-     
+```     
 #3
+``` {r}
     userInp <- as.numeric(readline("Enter a number to start the Fibonacci sequence: "))
 
+  a <- 0
+  b <- 1
 
-a <- 0
-b <- 1
-
-cat("Fibonacci sequence starting from", userInp, ": ")
-cat(userInp, " ")
+  cat("Fibonacci sequence starting from", userInp, ": ")
+  cat(userInp, " ")
 
 
-repeat {
+  repeat {
 
   nextFib <- a + b
 
@@ -48,13 +50,41 @@ repeat {
     break
   }
 
-
   cat(nextFib, " ")
-
- 
+  
   a <- b
   b <- nextFib
 }
-
+```
 #4 
-    date set
+``` {r}
+ 
+  shoesizes <- read.csv("Shoe_Sizes")
+  
+```
+
+#4b
+``` {r}
+  Male <- shoesizes[shoesizes$Gender=="M",]
+  Female <- shoesizes[shoesizes$Gender=="F",]
+  
+  male_Count <- nrow(Male)
+    female_Count <- nrow(Female)
+   
+    cat("Numbers of Male: ", male_Count, "\n")
+    cat("Numbers of Female: ", female_Count, "\n")
+```    
+#4c
+``` {r}
+  gender_Count <- c(male = male_Count, female = female_Count)
+     
+      barplot(gender_Count, main = "Numbers of Male and Female",
+              xlab = "Gender", ylab = "Numbers", col = c("lightblue", "pink"),
+              legend.text = TRUE)
+      legend("topright", legend = names(gender_Count), fill =  c("lightblue", "pink"))
+```      
+      
+#5
+``` {r}
+
+  
