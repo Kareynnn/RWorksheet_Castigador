@@ -167,8 +167,8 @@ legend("topright", legend = levels(iris$Species), col = unique(as.numeric(iris$S
 #7
 ```{r}
       library(readxl)
-    excimp <- read_excel("alexa_file.xlsx")
-    excimp
+    excimp <- read_excel("alexa_file.xlsx ")
+    excimp  
     
 ```
 7a.
@@ -190,11 +190,11 @@ excimp$variation <- gsub("White  Spot", "WhiteSpot", excimp$variation)
 ```{r}
 library("dplyr")
 
-varitot <- excimp %>% 
+var <- excimp %>% 
   count(excimp$variation)
 
-varitot
-save(varitot, file = "variations.RData")
+var
+save(var, file = "variations.RData")
 ```
 7c.
 ```{r}
@@ -202,7 +202,7 @@ save(varitot, file = "variations.RData")
   varitot
   namevari <- varitot$`excimp$variation`
 
-  plotot <- barplot(varitot$n,
+  plot <- barplot(varitot$n,
                      names.arg = namevari,
                      main = "Total number of each variations",
                      xlab = "Name of Variations",
