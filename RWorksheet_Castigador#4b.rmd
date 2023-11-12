@@ -86,5 +86,173 @@ knitr::opts_chunk$set(echo = TRUE)
       
 #5
 ``` {r}
+ # Define the data
+mypie <- c(60, 10, 5, 25)
+#Create the pie chart
+pie(mypie, 
+    main = "Monthly Income of Dela Cruz family",
+    col = rainbow(length(mypie)),
+    labels = c("60%", "10%", "5%","25%"),
+    
+)
+legend("topright", legend = c("Food", "Electricity", "Savings", "Miscellaneous"), fill = rainbow(length(mypie)))
 
-  
+
+
+```
+#6
+```{r}
+        data(iris)
+        str(iris)
+        
+#This output shows the structure of the data(iris) that contains the sepal length, sepal width, petal length, petal width, and species, including the objects and variables.
+```
+6b.
+```{r}
+
+    sepalen <- mean(iris$Sepal.Length)
+    
+    sepalwim <- mean(iris$Sepal.Width)
+   
+    petle <- mean(iris$Petal.Length)
+    
+    petwi <- mean(iris$Petal.Width)
+    
+    
+    print(sepalen)
+    print(sepalwim)
+    print(petle)
+    print(petwi)
+```
+6c.
+```{r}
+
+      specount <- table(iris$Species)
+      
+      pie(specount,
+          main = "Species",
+          col = rainbow(length(specount)),
+          labels = c("setosa", "versicolor", "Virginica")
+          )
+      legend("topleft", legend = c("setosa", "versicolor", "Virginica"), fill = rainbow(length(specount)))
+          
+```
+6d.
+```{r}
+      
+      setsub <- iris[iris$Species == "setosa" | iris$Species == "Versicolor" | iris$Species == "virginica", ]
+      setsub
+      
+      tail(setsub, 6)
+      
+```
+6e.
+```{r}
+    
+plot(iris$Sepal.Length, iris$Sepal.Width, 
+     col = as.numeric(iris$Species),  # Color based on species
+     pch = as.numeric(iris$Species),  # Different symbol for each species
+     main = "Iris Dataset",
+     sub = "Sepal Width and Length",
+     xlab = "Sepal Length", ylab = "Sepal Width"
+)
+
+legend("topright", legend = levels(iris$Species), col = unique(as.numeric(iris$Species)), pch = unique(as.numeric(iris$Species)))
+
+#6f the scatterplot displays the relationship between the sepal length and width.
+
+```
+   
+
+#7
+```{r}
+      library(readxl)
+    excimp <- read_excel("alexa_file.xlsx")
+    excimp
+    
+```
+7a.
+```{r}
+  excimp$variation <- gsub("Black  Dot", "BlackDot", excimp$variation)
+  excimp$variation <- gsub("Black  Plus", "BlackPlus", excimp$variation)
+  excimp$variation <- gsub("Black  Show", "BlackShow", excimp$variation)
+  excimp$variation <- gsub("Black  Spot", "BlackSpot", excimp$variation)
+
+excimp$variation <- gsub("White  Dot", "WhiteDot", excimp$variation)
+excimp$variation <- gsub("White  Plus", "WhitePlus", excimp$variation)
+excimp$variation <- gsub("White  Show", "WhiteShow", excimp$variation)
+excimp$variation <- gsub("White  Spot", "WhiteSpot", excimp$variation)
+
+
+    excimp
+```
+7b.
+```{r}
+library("dplyr")
+
+varitot <- excimp %>% 
+  count(excimp$variation)
+
+varitot
+save(varitot, file = "variations.RData")
+```
+7c.
+```{r}
+    load("variations.RData")
+  varitot
+  namevari <- varitot$`excimp$variation`
+
+  plotot <- barplot(varitot$n,
+                     names.arg = namevari,
+                     main = "Total number of each variations",
+                     xlab = "Name of Variations",
+                     ylab = "Total of each Variatons",
+                     col = 1:16,
+                     space = 0.1,
+                     cex.names = 0.5,
+                     las = 2)
+
+7 D. Create a barplot() for the black and white variations. Plot it in 1 frame, side by
+side. Complete the details of the chart.
+```{r}
+# Load the required libraries
+library(ggplot2)
+library(magrittr)
+
+# Assuming your data frame is named variations
+# Replace "alexa_file$variation" with the actual column name in your data frame
+
+# Subset the data for Black variations
+Blackplot <- variations[variations$`alexa_file$variation` %in% c("Black", "BlackDot", "BlackShow", "BlackPlus", "BlackSpot"), ]
+
+# Subset the data for White variations
+Whiteplot <- variations[variations$`alexa_file$variation` %in% c("White", "WhiteDot", "WhiteShow", "WhitePlus", "WhiteSpot"), ]
+
+#layout one frame
+par(mfrow = c(1, 2), mar = c(2, 2, 2, 2))
+
+# Barplot for Black variations
+Black <- barplot(height = Blackplot$n,
+                 names.arg = Blackplot$`alexa_file$variation`,
+                 col = "Black",
+                 main = "Black Variations",
+                 xlab = "Number of Variation",
+                 ylab = "Count",
+                 las = 0.0,
+                 cex.names = 0.4,
+                 space = 0.2
+)
+
+# Barplot for White variations
+White <- barplot(height = Whiteplot$n,
+                 names.arg = Whiteplot$`alexa_file$variation`,
+                 col = "White",
+                 main = "White Variations",
+                 xlab = "Number of Variation",
+                 ylab = "Count",
+                 las = 0.0,
+                 cex.names = 0.4,
+                 space = 0.2
+)
+mtext("The Black and White Variations", side = 3, line = 1, cex = 1.2)
+knitr::include_graphics("/cloud/project/Worksheet#4/BLACKandWHITE.png")
