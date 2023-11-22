@@ -1,0 +1,16 @@
+---
+title: "RWorksheet_Castigador#4C"
+output: pdf_document
+date: "2023-11-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1
+```{r}
+  library(readr)
+  mpg <- read_csv("mpg.csv")
+  mpg
+```  
