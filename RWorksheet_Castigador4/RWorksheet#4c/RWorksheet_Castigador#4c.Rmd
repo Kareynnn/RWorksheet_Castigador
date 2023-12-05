@@ -8,9 +8,322 @@ date: "2023-11-22"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#1
+#1a
 ```{r}
   library(readr)
-  mpg <- read_csv("mpg.csv")
-  mpg
+  empg <- read_csv("mpg.csv")
+  empg
 ```  
+#1b
+```{r}
+ str(empg)
+
+```
+#1c
+```{r}
+  summary(empg)
+
+```
+#2
+```{r}
+
+library(dplyr)
+
+# manufacturer with the most models
+manufactModel <- mpg %>%
+  group_by(manufacturer) %>%
+  summarize(modNum = n_distinct(model)) %>%
+  filter(modNum == max(modNum))
+
+#model with the most variations
+modVari <- mpg %>%
+  group_by(model) %>%
+  summarize(varinum = n_distinct(manufacturer)) %>%
+  filter(varinum == max(varinum))
+
+# Display the results
+print(manufactModel)
+print(modVari)
+```
+
+#2a
+``` {r}
+  library(dplyr)
+
+  manufacture <- mpg %>%
+    group_by(manufacturer) %>%
+    summarize(models = list(unique(model)))
+  manufacture
+```  
+#2b
+```{r}
+library(ggplot2)
+
+plot(ggplot(manufacture, aes(x = reorder(manufacturer, -models), y = models, fill = models)) +
+ geom_bar(stat = "identity", width = 0.9) + 
+ labs(title = "Number of Manufacturer's Unique Models", 
+      x = "Manufacturer",
+      y = "Number of Unique Models") +
+   
+ theme_minimal() +
+ scale_fill_gradient(low = "violet", high = "pink") +
+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))) 
+```
+#2c
+``` {r}
+ggplot(mpg, aes(model, manufacturer)) + geom_point() 
+
+```
+
+#2d
+``` {r}
+
+ggplot(mpg, aes(x = model, y = manufacturer, color = class)) + 
+  geom_point() +
+  labs(title = "Car Models and Manufacturers",
+       cex = 3,
+       x = "Car Model",
+       y = "Manufacturer",
+       color = "Vehicle Class") +
+  theme_minimal() +
+  theme(legend.position = "right", axis.text.x = element_text(angle = 90, hjust = 1),
+  plot.title = element_text(hjust  = 0.5))
+```
+#3
+``` {r}
+library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+
+mean_df <- mpg %>%
+ group_by(year, model) %>%
+ summarise(mean_displ = mean(displ)) %>%
+ arrange(desc(mean_displ)) %>%
+ filter(row_number() < 20) 
+
+plot <- ggplot(mean_df, aes(x = year, y = mean_displ, fill = model)) +
+ geom_bar(stat = "identity", position = "dodge") +
+ theme_minimal() +
+ guides(fill = guide_legend(ncol = 2)) 
+ labs(title = "Average Engine Displacement over the years for the top 20 models",
+       x = "Year",
+       y = "Engine Displacement",
+       fill = "Model")
+
+print(plot)
+
+```
+#4
+```{r}
+  library(dplyr)
+data(mpg)
+
+
+carcountmodel <- mpg %>%
+  group_by(model) %>%
+  summarise(num_cars = n())
+
+
+print(carcountmodel)
+
+```
+#4a
+``` {r}
+  library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+summary_data <- mpg %>%
+  count(model) %>%
+  arrange(desc(n)) %>%
+  slice(1:20)
+
+topmodels <- summary_data$model
+palette <- scales::hue_pal()(length(topmodels))
+
+summary_data <- summary_data %>%
+  mutate(color = palette[match(model, topmodels)])
+
+ggplot(summary_data, aes(x = reorder(model, n), y = n, fill = model)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Top 20 Car Models by Count",
+    x = "Car Models",
+    y = "Total Cars"
+  ) +
+  scale_fill_manual(values = palette, name = "Car Models", breaks = summary_data$model) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.key.size = unit(0.1, "cm"),
+    plot.title = element_text(hjust = 0.5)  
+  )
+
+
+
+```
+#4b
+``` {r}
+library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+summary_data <- mpg %>%
+  count(model) %>%
+  arrange(desc(n)) %>%
+  slice(1:20)
+
+
+topmodels <- summary_data$model
+palette <- scales::hue_pal()(length(topmodels))
+
+summary_data <- summary_data %>%
+  mutate(color = palette[match(model, topmodels)])
+
+ggplot(summary_data, aes(x = reorder(model, n), y = n, fill = model)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Top 20 Car Models by Count",
+    y = "Car Models",  
+    x = "Total Cars"
+  ) +
+  scale_fill_manual(values = palette, name = "Car Models", breaks = summary_data$model) +
+  coord_flip() + 
+  theme_minimal() +
+  theme(
+    legend.key.size = unit(0.1, "cm"),
+    plot.title = element_text(hjust = 0.5)  
+  )
+
+
+```
+#5
+``` {r}
+  library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point(size = 3, alpha = 0.7) +  
+  labs(
+    title = "Relationship between No. of Cylinders and Engine Displacement",
+    x = "Number of Cylinders",
+    y = "Engine Displacement"
+  )
+
+```
+#5a
+``` {r}
+library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  
+  labs(
+    title = "Relationship between No. of Cylinders and Engine Displacement",
+    x = "Number of Cylinders",
+    y = "Engine Displacement"
+  )
+
+```
+#6
+```{r} 
+library(ggplot2)
+library(dplyr)
+
+data(mpg)
+
+ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
+  geom_point() +
+  labs(
+    title = "Relationship between Engine Displacement and Highway MPG",
+    x = "Engine Displacement",
+    y = "Highway MPG"
+  ) +
+  scale_color_gradient(low = "green", high = "black")  
+
+```
+6 Import the traffic.csv onto your R environment.
+```{r}
+library(readr)
+traffic <- read_csv("traffic.csv")
+View(traffic)
+
+```
+#6a
+```{r}
+observations <- nrow(traffic)
+variables <- names(traffic)
+
+cat("Number of observations:", observations, "\n")
+cat("The variables are:", variables, "\n")
+
+```
+#6b
+```{r}
+junctions1 <- subset(traffic, Junction == 1)
+junctions2 <- subset(traffic, Junction == 2)
+junctions3 <- subset(traffic, Junction == 3)
+junctions4 <- subset(traffic, Junction == 4) 
+
+#The output are:
+junctions1  
+junctions2
+junctions3
+junctions4
+```
+c. Plot each junction in a using geom_line(). Show your solution and output.
+```{r}
+# Junction 1
+ggplot(junctions1, aes(x = DateTime, y = Vehicles, color = "Junction 1")) +
+  geom_line() +
+  labs(
+    title = "Traffic Volume at Junction 1",
+    x = "Date",
+    y = "Volume"
+  ) +
+  scale_color_discrete(name = "Junction") +
+ theme(plot.title = element_text(hjust = 0.5))
+
+#Junction 2
+ggplot(junctions2, aes(x = DateTime, y = Vehicles, color = "Junction 2")) +
+  geom_line() +
+  labs(
+    title = "Traffic Volume at Junction 2",
+    x = "Date",
+    y = "Volume"
+  ) +
+  scale_color_discrete(name = "Junction") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+#Junction 3
+ggplot(junctions3, aes(x = DateTime, y = Vehicles, color = "Junction 3")) +
+  geom_line() +
+  labs(
+    title = "Traffic Volume at Junction 3",
+    x = "Date",
+    y = "Volume"
+  ) +
+  scale_color_discrete(name = "Junction") +
+ theme(plot.title = element_text(hjust = 0.5))
+
+#Junction 4
+ggplot(junctions4, aes(x = DateTime, y = Vehicles, color = "Junction 4")) +
+  geom_line() +
+  labs(
+    title = "Traffic Volume at Junction 4",
+    x = "Date",
+    y = "Volume"
+  ) +
+  scale_color_discrete(name = "Junction") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+#7
